@@ -1,7 +1,25 @@
 import random
+import time
+
+character = ("      ","The Princess: ","Boblin the Goblin: ","Danny Devil:" ,"Terry Tree-man: ","The D-Dragon: ")
+start_dia = ("Long, long, ago... In a place far, far, away... Was someone who wielded great magic.","You are a brave wizard embarking on a quest to retrieve the Princess.")
+prin_bend = ("")
 tab = "     "
 mpoints = 2
 hpoints = 50
+qspeed = 0.4
+nspeed = 0.8
+lspeed = 1.2
+
+
+def wprint(y,x,s): #y is character x is str or tuple/list s is seconds y=str x=str s=flt
+    if isinstance(x,str) == True:
+        print(x)
+        time.sleep(s)
+    else:
+        for i in x:
+            print(y.upper() + i)
+            time.sleep(s)
 
 def visgap(x):
     gaps = []
@@ -16,7 +34,7 @@ def visgap(x):
         l = "".join(gaps)
         return l
     else:
-        print("Something's gone deepy wrong.")    
+        print("Something's gone deepy wrong here.")    
         
 
 def showpoints():
@@ -64,7 +82,6 @@ class Gun():
             damage = b*self.dam
             return [damage, self.damtype,b]
 
-    
 
 
 class Spell():
@@ -103,10 +120,18 @@ class Enemy:
         print(f"{self.name}'s Health: " + str(self.hp))
         print(j)
 
-
-
 def dmgtext(u):
     print(str(u[0]) + " " + u[1] + " damage.")
+
+def isalive(x):
+    if hpoints <= 0:
+        print("You have died...")
+        return False
+    elif x.hp <= 0:
+        print(x.name + " has died!")
+        return False
+    else:
+        return True
 
 
 def attack(y,x): #y is spell, x is whos getting maimed
@@ -156,33 +181,15 @@ clo = Spell("Clobber",1,4,"PHYSICAL",0)
 gun_bfs = Gun("Beretta 92 FS",7,"PHYSICAL",10,10,30)
 
 # idea of a weakness quote, res quote, lose quote. 
-bob = Enemy("Boblin the Goblin",400,"PHYSICAL","None","I'm a meanace to society!")
+bob = Enemy("Boblin the Goblin",100,"PHYSICAL","None","I'm a menace to society!")
 dev = Enemy("Danny Devil",140,"None","FIRE","Hee-hee! I'm gonna make people do sin!")
 tre = Enemy("Terry Tree-man",40,"FIRE","LIGHTNING","I'm going to suck the life out of the earth!")
+ 
+fighting = True
+while fighting == True:
+    e = bob
+    showpoints()
+    e.showhp()
+    attack(clo,e)
+    fighting = isalive(e)
 
-
-
-o = bob
-showpoints()
-o.showhp()
-attack(fbl,o)
-showpoints()
-o.showhp()
-attack(lgt,o)
-showpoints()
-o.showhp()
-attack(clo,o)
-showpoints()
-o.showhp()
-attack(gun_bfs,o)
-showpoints()
-o.showhp()
-attack(gun_bfs,o)
-showpoints()
-o.showhp()
-attack(gun_bfs,o)
-showpoints()
-o.showhp()
-attack(gun_bfs,o)
-showpoints()
-o.showhp()
